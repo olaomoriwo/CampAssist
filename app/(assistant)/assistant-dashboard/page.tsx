@@ -66,7 +66,8 @@ export default function AssistantDashboard() {
     const pusher = getPusherClient();
     const channel = pusher.subscribe(channels.assistantJobs(profile.festival_id));
     channel.bind(events.NEW_JOB, () => loadData());
-    return () => { channel.unbind_all(); pusher.unsubscribe(channels.assistantJobs(profile.festival_id)); };
+    const festivalId = profile.festival_id;
+    return () => { channel.unbind_all(); pusher.unsubscribe(channels.assistantJobs(festivalId!)); };
   }, [profile?.festival_id, loadData]);
 
   const toggleAvailability = async () => {
