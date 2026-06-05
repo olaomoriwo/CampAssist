@@ -1,10 +1,38 @@
 "use client";
 import { useEffect } from "react";
-import { MapContainer, ImageOverlay, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Festival, MapPOI } from "@/types";
 import { getPOICategoryIcon } from "@/lib/utils";
+
+// Fix Leaflet default icon path issue with Next.js
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+});
+
+function createEmojiMarker(emoji: string) {
+  return L.divIcon({
+    html: `<div style="font-size:26px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35));cursor:pointer;transition:transform 0.1s">${emoji}</div>`,
+    className: "",
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+  });
+}
+
+function FitBounds({ pois }: { pois: MapPOI[] }) {
+  const map = useMap();
+  useEffect(() => {
+    if (pois.length > 0) {
+      const bounds = L.latLngBounds(pois.map(p => [p.lat, p.lng] as [number, number]));
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+  }, [map, pois.length]);
+  return null;
+}
 
 interface FestivalMapProps {
   festival: Festival;
@@ -12,51 +40,36 @@ interface FestivalMapProps {
   onSelectPOI: (poi: MapPOI) => void;
 }
 
-// Create custom emoji markers
-function createEmojiMarker(emoji: string) {
-  return L.divIcon({
-    html: `<div style="font-size:24px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))">${emoji}</div>`,
-    className: "",
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
-  });
-}
-
-function MapBounds({ bounds }: { bounds: L.LatLngBoundsExpression }) {
-  const map = useMap();
-  useEffect(() => {
-    map.fitBounds(bounds);
-  }, [map, bounds]);
-  return null;
-}
-
 export default function FestivalMap({ festival, pois, onSelectPOI }: FestivalMapProps) {
-  // Default bounds — festival organisers update these when uploading the map
-  // These represent the image overlay bounds on the Leaflet canvas
-  const bounds: L.LatLngBoundsExpression = [[0, 0], [1000, 1000]];
+  // Center on Margam Park, Wales
+  const center: [number, number] = [51.578, -3.729];
 
   return (
     <MapContainer
-      crs={L.CRS.Simple}
-      bounds={bounds}
+      center={center}
+      zoom={16}
       style={{ height: "100%", width: "100%", borderRadius: "1rem" }}
       zoomControl={true}
-      attributionControl={false}
+      attributionControl={true}
     >
-      {festival.map_image_url && (
-        <ImageOverlay url={festival.map_image_url} bounds={bounds} />
-      )}
-      <MapBounds bounds={bounds} />
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        maxZoom={19}
+      />
+      {pois.length > 0 && <FitBounds pois={pois} />}
       {pois.map(poi => (
         <Marker
           key={poi.id}
-          position={[poi.lat, poi.lng]}
+          position={[poi.lat, poi.lng] as [number, number]}
           icon={createEmojiMarker(getPOICategoryIcon(poi.category))}
           eventHandlers={{ click: () => onSelectPOI(poi) }}
         >
           <Popup>
-            <strong>{poi.name}</strong>
-            {poi.notes && <p className="text-xs mt-1">{poi.notes}</p>}
+            <div style={{ fontFamily: "sans-serif", minWidth: "120px" }}>
+              <strong style={{ fontSize: "13px" }}>{poi.name}</strong>
+              {poi.notes && <p style={{ margin: "4px 0 0", fontSize: "11px", color: "#6b7280" }}>{poi.notes}</p>}
+            </div>
           </Popup>
         </Marker>
       ))}
