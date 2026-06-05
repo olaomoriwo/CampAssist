@@ -1,48 +1,46 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, HelpCircle, User, Briefcase, History, LayoutDashboard } from "lucide-react";
+import { Home, MapPin, Users, Tent, Sparkles } from "lucide-react";
 import { UserRole } from "@/types";
 
-interface BottomNavProps {
-  role: UserRole;
-}
+interface BottomNavProps { role: UserRole; }
 
 const camperLinks = [
   { href: "/dashboard", icon: Home, label: "Home" },
+  { href: "/tents", icon: Tent, label: "Tents" },
   { href: "/map", icon: MapPin, label: "Map" },
-  { href: "/request-help", icon: HelpCircle, label: "Help" },
-  { href: "/profile", icon: User, label: "Profile" },
+  { href: "/groups", icon: Users, label: "Groups" },
+  { href: "/social", icon: Sparkles, label: "Feed" },
 ];
 
 const assistantLinks = [
-  { href: "/assistant-dashboard", icon: Briefcase, label: "Jobs" },
-  { href: "/job-history", icon: History, label: "History" },
+  { href: "/assistant-dashboard", icon: Home, label: "Jobs" },
+  { href: "/chat", icon: MapPin, label: "Messages" },
+  { href: "/job-history", icon: Users, label: "History" },
 ];
 
 const adminLinks = [
-  { href: "/admin", icon: LayoutDashboard, label: "Admin" },
+  { href: "/admin", icon: Home, label: "Admin" },
 ];
 
 export default function BottomNav({ role }: BottomNavProps) {
   const pathname = usePathname();
   const links = role === "camper" ? camperLinks : role === "assistant" ? assistantLinks : adminLinks;
+  const activeColor = role === "camper" ? "#16a34a" : role === "assistant" ? "#ea580c" : "#7c3aed";
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 safe-area-bottom">
-      <div className="flex items-center justify-around px-2 py-2 max-w-lg mx-auto">
+    <nav style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderTop: "1px solid rgba(0,0,0,0.06)", zIndex: 50 }}>
+      <div style={{ display: "flex", alignItems: "center", padding: "6px 0 10px", maxWidth: "430px", margin: "0 auto" }}>
         {links.map(({ href, icon: Icon, label }) => {
-          const active = pathname === href;
+          const active = pathname === href || (href !== "/dashboard" && href !== "/assistant-dashboard" && href !== "/admin" && pathname.startsWith(href));
           return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors ${
-                active ? "text-primary-600" : "text-gray-400 hover:text-gray-600"
-              }`}
-            >
-              <Icon size={22} strokeWidth={active ? 2.5 : 1.5} />
-              <span className="text-xs font-medium">{label}</span>
+            <Link key={href} href={href}
+              style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", textDecoration: "none", padding: "0", color: active ? activeColor : "#9ca3af" }}>
+              <div style={{ width: "32px", height: "32px", borderRadius: "10px", background: active ? `${activeColor}18` : "transparent", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
+                <Icon size={19} strokeWidth={active ? 2.5 : 1.8} />
+              </div>
+              <span style={{ fontSize: "9px", fontWeight: active ? "700" : "500", letterSpacing: "0.02em" }}>{label}</span>
             </Link>
           );
         })}
