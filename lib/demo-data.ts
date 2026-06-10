@@ -172,6 +172,137 @@ export const DEMO_ADMIN_STAFF = [
   { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a3', name: 'Tobi R.' }, available: true },
 ];
 
+// ── Vendor demo data ─────────────────────────────────────────────────────────
+
+export const DEMO_VENDOR_PROFILE = {
+  id: 'demo-vendor-1',
+  name: 'The Green Bar',
+  contact_name: 'Tom Adeyemi',
+  email: 'tom@thegreenbar.co.uk',
+  phone: '+44 7700 008844',
+  category: 'bar' as const,
+  description: 'Craft beer, cocktails & mocktails. DJ from 8pm nightly.',
+  lat: 51.5791,
+  lng: -3.7262,
+  pin_confirmed: true,
+  pin_description: 'Adjacent to the Jazz & Soul Tent, look for the neon green sign',
+  opening_hours: '2pm – 3am',
+  festival_id: 'demo-festival-1',
+  poi_id: '8',
+};
+
+export const DEMO_VENDORS = [
+  {
+    id: 'v1', poi_id: '1', name: 'Big Smoke Burgers', category: 'food' as const,
+    lat: 51.5798, lng: -3.7265, contact: 'James Okafor',
+    description: 'Award-winning smash burgers', pin_confirmed: true, opening_hours: '11am–1am',
+  },
+  {
+    id: 'v2', poi_id: '2', name: 'Pizza Republic', category: 'food' as const,
+    lat: 51.5785, lng: -3.7242, contact: 'Maria Rossi',
+    description: 'Wood-fired Neapolitan pizza', pin_confirmed: true, opening_hours: '12pm–midnight',
+  },
+  {
+    id: 'v3', poi_id: '8', name: 'The Green Bar', category: 'bar' as const,
+    lat: 51.5791, lng: -3.7262, contact: 'Tom Adeyemi',
+    description: 'Craft beer, cocktails & mocktails', pin_confirmed: true, opening_hours: '2pm–3am',
+  },
+  {
+    id: 'v4', poi_id: '3', name: 'Vibe & Vegan', category: 'food' as const,
+    lat: 51.5778, lng: -3.7258, contact: 'Zara Nwosu',
+    description: '100% plant-based wraps & smoothies', pin_confirmed: false, opening_hours: '10am–10pm',
+  },
+];
+
+export type VendorScheduleType = 'performance' | 'free_tasting' | 'competition' | 'workshop' | 'special' | 'promotion';
+
+export interface VendorScheduleEvent {
+  id: string;
+  vendor_id: string;
+  vendor_name: string;
+  vendor_category: 'food' | 'bar' | 'other';
+  event_name: string;
+  day: 'Friday' | 'Saturday' | 'Sunday';
+  start_time: string;
+  end_time: string;
+  description: string;
+  type: VendorScheduleType;
+  is_free: boolean;
+  emoji: string;
+  capacity: number | null;
+  is_hot: boolean;
+  poi_id: string;
+}
+
+export const DEMO_VENDOR_SCHEDULES: VendorScheduleEvent[] = [
+  // Big Smoke Burgers
+  {
+    id: 'sch-1', vendor_id: 'v1', vendor_name: 'Big Smoke Burgers', vendor_category: 'food',
+    event_name: 'Secret Menu Launch', day: 'Friday', start_time: '12:00', end_time: '13:00',
+    description: 'Be first to try our exclusive festival-only secret menu. Limited to 50 people — get there early!',
+    type: 'special', is_free: false, emoji: '🍔', capacity: 50, is_hot: true, poi_id: '1',
+  },
+  {
+    id: 'sch-2', vendor_id: 'v1', vendor_name: 'Big Smoke Burgers', vendor_category: 'food',
+    event_name: 'Burger Eating Challenge', day: 'Saturday', start_time: '16:00', end_time: '17:00',
+    description: 'Can you eat 3 double smash burgers in 10 minutes? Winner gets free food for the whole weekend!',
+    type: 'competition', is_free: true, emoji: '🏆', capacity: 10, is_hot: true, poi_id: '1',
+  },
+  {
+    id: 'sch-3', vendor_id: 'v1', vendor_name: 'Big Smoke Burgers', vendor_category: 'food',
+    event_name: 'Happy Hour: 2-for-1 Burgers', day: 'Sunday', start_time: '15:00', end_time: '17:00',
+    description: '2-for-1 on all burgers during happy hour. First come, first served — no pre-orders.',
+    type: 'promotion', is_free: false, emoji: '⏰', capacity: null, is_hot: false, poi_id: '1',
+  },
+  // The Green Bar
+  {
+    id: 'sch-4', vendor_id: 'v3', vendor_name: 'The Green Bar', vendor_category: 'bar',
+    event_name: 'Tango & Cocktails Night', day: 'Friday', start_time: '20:00', end_time: '22:00',
+    description: 'Live tango performance by El Fuego duo while you sip signature cocktails. Free to watch — drinks at normal price.',
+    type: 'performance', is_free: true, emoji: '💃', capacity: 80, is_hot: true, poi_id: '8',
+  },
+  {
+    id: 'sch-5', vendor_id: 'v3', vendor_name: 'The Green Bar', vendor_category: 'bar',
+    event_name: 'Stand-Up Comedy Set', day: 'Saturday', start_time: '21:00', end_time: '22:30',
+    description: 'Comedian Kemi Osei brings a festival-exclusive 90-minute set. Limited bar space — get there early!',
+    type: 'performance', is_free: true, emoji: '🎤', capacity: 60, is_hot: true, poi_id: '8',
+  },
+  {
+    id: 'sch-6', vendor_id: 'v3', vendor_name: 'The Green Bar', vendor_category: 'bar',
+    event_name: 'Morning After Mocktails', day: 'Saturday', start_time: '10:00', end_time: '12:00',
+    description: 'Nurse your festival morning with expertly crafted zero-alcohol mocktails. Full flavour, zero regrets.',
+    type: 'special', is_free: false, emoji: '🥤', capacity: null, is_hot: false, poi_id: '8',
+  },
+  // Vibe & Vegan
+  {
+    id: 'sch-7', vendor_id: 'v4', vendor_name: 'Vibe & Vegan', vendor_category: 'food',
+    event_name: 'Free Smoothie Tasting', day: 'Friday', start_time: '10:00', end_time: '12:00',
+    description: 'Try our new Tropical Storm and Berry Blast smoothies for free. First 100 campers only — seriously!',
+    type: 'free_tasting', is_free: true, emoji: '🥤', capacity: 100, is_hot: true, poi_id: '3',
+  },
+  {
+    id: 'sch-8', vendor_id: 'v4', vendor_name: 'Vibe & Vegan', vendor_category: 'food',
+    event_name: 'Vegan Cooking Demo', day: 'Saturday', start_time: '14:00', end_time: '15:00',
+    description: 'Watch Chef Zara prepare our most popular dishes from scratch. Take the recipe card home!',
+    type: 'workshop', is_free: true, emoji: '👩‍🍳', capacity: 30, is_hot: false, poi_id: '3',
+  },
+  // Pizza Republic
+  {
+    id: 'sch-9', vendor_id: 'v2', vendor_name: 'Pizza Republic', vendor_category: 'food',
+    event_name: 'Pizza Making Workshop', day: 'Sunday', start_time: '13:00', end_time: '14:30',
+    description: 'Learn to stretch and top your own Neapolitan pizza with Chef Maria. You eat what you make!',
+    type: 'workshop', is_free: false, emoji: '🍕', capacity: 12, is_hot: false, poi_id: '2',
+  },
+  {
+    id: 'sch-10', vendor_id: 'v2', vendor_name: 'Pizza Republic', vendor_category: 'food',
+    event_name: 'White Truffle Special', day: 'Saturday', start_time: '18:00', end_time: '20:00',
+    description: 'Limited run of white truffle & buffalo mozzarella pizza. Only 20 made daily — sold out both previous days!',
+    type: 'special', is_free: false, emoji: '🌿', capacity: 20, is_hot: true, poi_id: '2',
+  },
+];
+
+// ── Festival onboarding ───────────────────────────────────────────────────────
+
 export const DEMO_ONBOARDED_FESTIVALS = [
   {
     id: 'demo-festival-1',

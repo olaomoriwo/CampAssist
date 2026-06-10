@@ -213,6 +213,25 @@ export default function CamperDashboard() {
           </div>
         )}
 
+        {/* ── What's On Teaser ── */}
+        <Link href="/schedule"
+          className="card-hover flex items-center justify-between"
+          style={{ background: "linear-gradient(135deg, #0f0f1a, #1e1b4b)" }}>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(217,119,6,0.2)" }}>
+              <Zap size={17} style={{ color: "#d97706" }} />
+            </div>
+            <div>
+              <p className="font-bold text-[13px] text-white">What's On This Weekend</p>
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>Browse vendor schedules & nano-events</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] font-bold text-orange-400">🔥 10 events</span>
+            <ChevronRight size={15} style={{ color: "rgba(255,255,255,0.3)" }} />
+          </div>
+        </Link>
+
         {/* ── Social Feed Teaser ── */}
         <Link href="/social"
           className="card-hover flex items-center justify-between"

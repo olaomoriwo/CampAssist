@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, Users, Tent, MessageCircle } from "lucide-react";
+import { Home, MapPin, Users, Tent, MessageCircle, Calendar, Store } from "lucide-react";
 import { UserRole } from "@/types";
 
 interface BottomNavProps { role: UserRole; }
@@ -24,10 +24,25 @@ const adminLinks = [
   { href: "/admin", icon: Home, label: "Admin" },
 ];
 
+const vendorLinks = [
+  { href: "/vendor-dashboard", icon: Home, label: "Home" },
+  { href: "/vendor/pin", icon: MapPin, label: "My Pin" },
+  { href: "/vendor/schedule", icon: Calendar, label: "Schedule" },
+  { href: "/vendor/schedule/new", icon: Store, label: "Add Event" },
+];
+
 export default function BottomNav({ role }: BottomNavProps) {
   const pathname = usePathname();
-  const links = role === "camper" ? camperLinks : role === "assistant" ? assistantLinks : adminLinks;
-  const activeColor = role === "camper" ? "#16a34a" : role === "assistant" ? "#ea580c" : "#7c3aed";
+  const links =
+    role === "camper" ? camperLinks
+    : role === "assistant" ? assistantLinks
+    : role === "vendor" ? vendorLinks
+    : adminLinks;
+  const activeColor =
+    role === "camper" ? "#16a34a"
+    : role === "assistant" ? "#ea580c"
+    : role === "vendor" ? "#d97706"
+    : "#7c3aed";
 
   return (
     <nav style={{

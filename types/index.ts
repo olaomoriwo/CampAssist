@@ -1,4 +1,4 @@
-export type UserRole = "camper" | "assistant" | "admin";
+export type UserRole = "camper" | "assistant" | "admin" | "vendor";
 
 export interface Profile {
   id: string;
@@ -39,6 +39,7 @@ export type POICategory =
   | "food"
   | "first_aid"
   | "water"
+  | "vendor"
   | "other";
 
 export interface TentType {

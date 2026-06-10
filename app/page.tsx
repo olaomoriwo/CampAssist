@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Tent, MapPin, HelpCircle, ArrowRight, Star } from "lucide-react";
+import { Tent, MapPin, HelpCircle, ArrowRight, Store } from "lucide-react";
 
 const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
@@ -29,6 +29,7 @@ export default function LandingPage() {
             { icon: Tent, text: "Pre-book your tent with extras", sub: "Beds, stoves & gear" },
             { icon: HelpCircle, text: "On-demand camp assistants", sub: "Available throughout the festival" },
             { icon: MapPin, text: "Interactive festival map", sub: "Find & review any vendor" },
+            { icon: Store, text: "Vendor schedules & nano-events", sub: "Discover what's on all weekend" },
           ].map(({ icon: Icon, text, sub }) => (
             <div key={text} className="flex items-center gap-3 px-4 py-3 rounded-2xl" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}>
               <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.12)" }}>
@@ -60,6 +61,11 @@ export default function LandingPage() {
               style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}>
               Explore as Admin
             </Link>
+            <Link href="/vendor-dashboard"
+              className="flex items-center justify-center gap-2 font-semibold py-4 px-6 rounded-2xl text-sm transition-all"
+              style={{ background: "rgba(217,119,6,0.25)", border: "1px solid rgba(217,119,6,0.4)", color: "#fde68a" }}>
+              <Store size={16} /> Explore as Vendor
+            </Link>
           </div>
         ) : (
           <div className="flex flex-col gap-3 w-full max-w-xs">
@@ -80,9 +86,14 @@ export default function LandingPage() {
       {/* Footer */}
       <div className="text-center pb-8">
         {!DEMO_MODE && (
-          <Link href="/assistant-signup" className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
-            Are you a camp assistant? Sign up here
-          </Link>
+          <div className="flex flex-col gap-1.5">
+            <Link href="/assistant-signup" className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Are you a camp assistant? Sign up here
+            </Link>
+            <Link href="/vendor-signup" className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Are you a vendor? Join the platform
+            </Link>
+          </div>
         )}
         <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.2)" }}>CampAssist · Making festivals better</p>
       </div>
