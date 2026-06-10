@@ -58,6 +58,7 @@ export function getPOICategoryLabel(category: POICategory): string {
     food: "🍔 Food",
     first_aid: "🏥 First Aid",
     water: "💧 Water",
+    vendor: "🏪 Vendor",
     other: "📍 Other",
   };
   return labels[category];
@@ -71,6 +72,7 @@ export function getPOICategoryIcon(category: POICategory): string {
     food: "🍔",
     first_aid: "🏥",
     water: "💧",
+    vendor: "🏪",
     other: "📍",
   };
   return icons[category];

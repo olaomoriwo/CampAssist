@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   Flame, Clock, MapPin, Calendar, Zap, ChevronLeft,
   Music, UtensilsCrossed, Beer, Star, Sparkles, Filter,
+  type LucideIcon,
 } from "lucide-react";
 import BottomNav from "@/components/ui/BottomNav";
 import { DEMO_VENDOR_SCHEDULES, type VendorScheduleEvent } from "@/lib/demo-data";
@@ -22,7 +23,7 @@ const TYPE_CONFIG: Record<string, { label: string; emoji: string; color: string;
   promotion:    { label: "Promo",        emoji: "🏷️", color: "#db2777", bg: "#fdf4ff", gradient: "linear-gradient(135deg,#db2777,#be185d)" },
 };
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ size: number; className?: string }>> = {
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
   food: UtensilsCrossed,
   bar: Beer,
   music: Music,
@@ -370,9 +371,9 @@ function EventRow({ event, expanded, onToggle }: {
             </div>
           </div>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
-            <div className="flex items-center gap-1">
-              <CatIcon size={10} style={{ color: "rgba(255,255,255,0.35)" }} />
-              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>{event.vendor_name}</p>
+            <div className="flex items-center gap-1 opacity-40">
+              <CatIcon size={10} className="text-white" />
+              <p className="text-[11px] text-white">{event.vendor_name}</p>
             </div>
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
               style={{ background: cfg.bg + "25", color: cfg.color + "cc" }}>
