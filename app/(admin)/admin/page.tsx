@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { LayoutDashboard, Tent, HelpCircle, Users, Map, Plus, Trash2, LogOut, Globe, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { LayoutDashboard, Tent, HelpCircle, Users, Map, Plus, Trash2, LogOut, Globe, CheckCircle, Clock, AlertCircle, Layers, ArrowRight } from "lucide-react";
 import { getRequestTypeLabel, getPOICategoryIcon } from "@/lib/utils";
 import { DEMO_MODE, DEMO_ADMIN_BOOKINGS, DEMO_ADMIN_REQUESTS, DEMO_ADMIN_STAFF, DEMO_FESTIVAL, DEMO_ONBOARDED_FESTIVALS } from "@/lib/demo-data";
 
@@ -194,6 +194,22 @@ export default function AdminPage() {
         {/* ── MAP ── */}
         {tab === "map" && (
           <>
+            {/* Site Plan CTA */}
+            <Link href="/admin/site-plan"
+              className="flex items-center justify-between rounded-2xl p-4 transition-all active:scale-97"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #6d28d9)", boxShadow: "0 4px 16px rgba(124,58,237,0.3)" }}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
+                  <Layers size={20} className="text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-[14px]">Set Up Site Plan</p>
+                  <p className="text-white/70 text-[12px] mt-0.5">Upload & georeference your festival map</p>
+                </div>
+              </div>
+              <ArrowRight size={18} className="text-white/60" />
+            </Link>
+
             <div className="card">
               <p className="font-bold text-[13px] mb-3">Add Location Pin</p>
               <input className="input mb-2" placeholder="Location name" value={newPOI.name} onChange={e => setNewPOI(p => ({ ...p, name: e.target.value }))} />
