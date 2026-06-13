@@ -6,7 +6,7 @@ import BottomNav from "@/components/ui/BottomNav";
 import StatusBadge from "@/components/ui/StatusBadge";
 import StarRating from "@/components/ui/StarRating";
 import { AssistanceRequest } from "@/types";
-import { ArrowLeft, HelpCircle } from "lucide-react";
+import { ArrowLeft, HelpCircle, AlertTriangle } from "lucide-react";
 import { getRequestTypeLabel } from "@/lib/utils";
 import { DEMO_MODE, DEMO_REQUESTS } from "@/lib/demo-data";
 
@@ -76,6 +76,18 @@ export default function MyRequestsPage() {
                 <div>
                   <p className="text-xs text-gray-500 mb-1">Rate your assistant</p>
                   <StarRating value={ratings[req.id] ?? req.rating ?? 0} onChange={s => handleRate(req.id, s)} readonly={!!req.rating} />
+                </div>
+              )}
+              {/* Report button — only shown when an assistant is tied to this job */}
+              {(req as any).assigned_assistant_id &&
+               ["accepted", "in_progress", "complete"].includes(req.status) && (
+                <div className="mt-3 pt-3 border-t border-gray-50">
+                  <Link href={`/report/${req.id}`}
+                    className="flex items-center gap-1.5 text-[12px] font-semibold transition-all"
+                    style={{ color: "#dc2626" }}>
+                    <AlertTriangle size={12} />
+                    Report misconduct
+                  </Link>
                 </div>
               )}
             </div>

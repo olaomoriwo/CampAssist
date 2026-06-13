@@ -167,9 +167,9 @@ export const DEMO_ADMIN_REQUESTS = [
 ];
 
 export const DEMO_ADMIN_STAFF = [
-  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a1', name: 'Chidi M.' }, available: true },
-  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a2', name: 'Amara L.' }, available: false },
-  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a3', name: 'Tobi R.' }, available: true },
+  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a1', name: 'Chidi M.' }, available: true,  status: 'active'    as const },
+  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a2', name: 'Amara L.' }, available: false, status: 'active'    as const },
+  { profile: { ...DEMO_ASSISTANT_PROFILE, id: 'a3', name: 'Tobi R.'  }, available: true,  status: 'suspended' as const },
 ];
 
 // ── Vendor demo data ─────────────────────────────────────────────────────────
@@ -298,6 +298,67 @@ export const DEMO_VENDOR_SCHEDULES: VendorScheduleEvent[] = [
     event_name: 'White Truffle Special', day: 'Saturday', start_time: '18:00', end_time: '20:00',
     description: 'Limited run of white truffle & buffalo mozzarella pizza. Only 20 made daily — sold out both previous days!',
     type: 'special', is_free: false, emoji: '🌿', capacity: 20, is_hot: true, poi_id: '2',
+  },
+];
+
+// ── Misconduct reports ────────────────────────────────────────────────────────
+
+export type MisconductType =
+  | 'rude_behavior'
+  | 'no_show'
+  | 'damaged_property'
+  | 'harassment'
+  | 'theft'
+  | 'other';
+
+export type ReportStatus = 'pending_review' | 'under_review' | 'resolved' | 'dismissed';
+
+export interface AssistantReport {
+  id: string;
+  request_id: string;
+  request_type: string;
+  camper_id: string;
+  camper_name: string;
+  assistant_id: string;
+  assistant_name: string;
+  misconduct_type: MisconductType;
+  description: string;
+  image_url: string | null;
+  status: ReportStatus;
+  admin_note: string | null;
+  created_at: string;
+}
+
+export const DEMO_REPORTS: AssistantReport[] = [
+  {
+    id: 'report-1',
+    request_id: 'demo-req-1',
+    request_type: 'tent_setup',
+    camper_id: 'demo-user-1',
+    camper_name: 'Ola O.',
+    assistant_id: 'a3',
+    assistant_name: 'Tobi R.',
+    misconduct_type: 'rude_behavior',
+    description: 'The assistant arrived 45 minutes late and was dismissive when I pointed it out. He made sarcastic comments about the location of my tent and left without confirming everything was set up properly.',
+    image_url: null,
+    status: 'under_review',
+    admin_note: 'Contacted Tobi R. Awaiting his response. Second complaint this weekend.',
+    created_at: '2027-05-23T11:30:00Z',
+  },
+  {
+    id: 'report-2',
+    request_id: 'ar-3',
+    request_type: 'tent_collection',
+    camper_id: 'u3',
+    camper_name: 'Dele O.',
+    assistant_id: 'a1',
+    assistant_name: 'Chidi M.',
+    misconduct_type: 'damaged_property',
+    description: 'When collecting the tent, the assistant accidentally bent the main pole and denied it happened. I have photos of the damage.',
+    image_url: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop',
+    status: 'pending_review',
+    admin_note: null,
+    created_at: '2027-05-25T16:10:00Z',
   },
 ];
 
