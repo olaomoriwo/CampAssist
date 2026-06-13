@@ -50,7 +50,7 @@ export default function VendorSignupPage() {
           Your vendor account for <strong className="text-white">{form.businessName}</strong> is ready.
           Head to your dashboard to pin your spot and set your schedule.
         </p>
-        <Link href="/vendor-dashboard"
+        <Link href="/vendor-onboarding"
           className="font-bold py-4 px-8 rounded-2xl text-sm transition-all"
           style={{ background: "#fff", color: AMBER_DARK, boxShadow: "0 4px 20px rgba(0,0,0,0.2)" }}>
           Go to Vendor Dashboard →

@@ -48,7 +48,7 @@ export default function AssistantSignupPage() {
       });
     }
 
-    router.push("/assistant-dashboard");
+    router.push("/assistant-onboarding");
   };
 
   return (

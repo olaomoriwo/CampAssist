@@ -53,7 +53,7 @@ export default function SignupPage() {
       }).eq("id", user.id);
     }
 
-    router.push("/dashboard");
+    router.push("/camper-onboarding");
   };
 
   return (
