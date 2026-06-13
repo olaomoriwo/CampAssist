@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Tent, MapPin, HelpCircle, ArrowRight, Store } from "lucide-react";
+import { Tent, MapPin, HelpCircle, ArrowRight, Store, Shield } from "lucide-react";
 
 const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
@@ -44,28 +44,62 @@ export default function LandingPage() {
         </div>
 
         {DEMO_MODE ? (
-          <div className="flex flex-col gap-3 w-full max-w-xs">
-            <p className="text-xs uppercase tracking-widest font-semibold mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Try the demo</p>
-            <Link href="/dashboard"
+          <div className="flex flex-col gap-2.5 w-full max-w-xs">
+            {/* Onboarding flows */}
+            <p className="text-xs uppercase tracking-widest font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <Shield size={10} className="inline mr-1" />Onboarding &amp; KYC
+            </p>
+            <Link href="/camper-onboarding"
               className="flex items-center justify-center gap-2 font-bold py-4 px-6 rounded-2xl text-sm transition-all"
               style={{ background: "#fff", color: "#15803d", boxShadow: "0 4px 20px rgba(0,0,0,0.2)" }}>
-              <Tent size={17} /> Explore as Camper
+              <Tent size={17} /> Camper Onboarding
             </Link>
-            <Link href="/assistant-dashboard"
-              className="flex items-center justify-center gap-2 font-semibold py-4 px-6 rounded-2xl text-sm transition-all text-white"
-              style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}>
-              Explore as Camp Assistant
+            <Link href="/assistant-onboarding"
+              className="flex items-center justify-center gap-2 font-semibold py-3.5 px-6 rounded-2xl text-sm transition-all text-white"
+              style={{ background: "rgba(234,88,12,0.3)", border: "1px solid rgba(234,88,12,0.5)" }}>
+              🦺 Assistant Onboarding
             </Link>
-            <Link href="/admin"
-              className="flex items-center justify-center gap-2 font-semibold py-4 px-6 rounded-2xl text-sm transition-all text-white"
-              style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}>
-              Explore as Admin
+            <Link href="/admin-onboarding"
+              className="flex items-center justify-center gap-2 font-semibold py-3.5 px-6 rounded-2xl text-sm transition-all text-white"
+              style={{ background: "rgba(124,58,237,0.3)", border: "1px solid rgba(124,58,237,0.4)" }}>
+              🔐 Admin Onboarding
             </Link>
-            <Link href="/vendor-dashboard"
-              className="flex items-center justify-center gap-2 font-semibold py-4 px-6 rounded-2xl text-sm transition-all"
+            <Link href="/vendor-onboarding"
+              className="flex items-center justify-center gap-2 font-semibold py-3.5 px-6 rounded-2xl text-sm transition-all"
               style={{ background: "rgba(217,119,6,0.25)", border: "1px solid rgba(217,119,6,0.4)", color: "#fde68a" }}>
-              <Store size={16} /> Explore as Vendor
+              <Store size={16} /> Vendor Onboarding
             </Link>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 my-1">
+              <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.1)" }} />
+              <p className="text-[10px] uppercase tracking-widest font-semibold" style={{ color: "rgba(255,255,255,0.3)" }}>or skip to dashboards</p>
+              <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.1)" }} />
+            </div>
+
+            {/* Direct dashboard access */}
+            <div className="grid grid-cols-2 gap-2">
+              <Link href="/dashboard"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl text-[12px] font-semibold text-white transition-all"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                <Tent size={13} /> Camper
+              </Link>
+              <Link href="/assistant-dashboard"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl text-[12px] font-semibold text-white transition-all"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                🦺 Assistant
+              </Link>
+              <Link href="/admin"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl text-[12px] font-semibold text-white transition-all"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                🔐 Admin
+              </Link>
+              <Link href="/vendor-dashboard"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-2xl text-[12px] font-semibold transition-all"
+                style={{ background: "rgba(217,119,6,0.15)", border: "1px solid rgba(217,119,6,0.3)", color: "#fde68a" }}>
+                <Store size={13} /> Vendor
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-3 w-full max-w-xs">

@@ -6,6 +6,7 @@
  * On completion → /admin (full access granted)
  */
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ChevronRight, ChevronLeft, Check, Shield, Building,
@@ -192,14 +193,17 @@ export default function AdminOnboardingPage() {
   return (
     <div className="min-h-screen" style={{ background: "#f7f8fa" }}>
       {/* Header */}
-      <div className="px-5 pt-6 pb-3 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
-          <Lock size={18} style={{ color: PURPLE }} />
+      <div className="px-5 pt-6 pb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
+            <Lock size={18} style={{ color: PURPLE }} />
+          </div>
+          <div>
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Admin Verification</p>
+            <p className="font-bold text-[16px] text-gray-900">Organiser access setup</p>
+          </div>
         </div>
-        <div>
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Admin Verification</p>
-          <p className="font-bold text-[16px] text-gray-900">Organiser access setup</p>
-        </div>
+        <Link href="/admin" className="text-[12px] font-semibold text-gray-400">Skip for now</Link>
       </div>
 
       <ProgressBar step={step} />

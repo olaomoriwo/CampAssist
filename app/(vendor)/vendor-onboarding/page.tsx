@@ -194,7 +194,7 @@ export default function VendorOnboardingPage() {
             </div>
           ))}
         </div>
-        <button onClick={() => router.push("/vendor/dashboard")}
+        <button onClick={() => router.push("/vendor-dashboard")}
           className="w-full max-w-xs py-4 rounded-2xl font-bold text-[15px] text-white"
           style={{ background: `linear-gradient(135deg, ${AMBER}, ${AMBER_DARK})`, boxShadow: `0 4px 20px rgba(217,119,6,0.35)` }}>
           Go to vendor dashboard →
@@ -215,7 +215,7 @@ export default function VendorOnboardingPage() {
             <p className="font-bold text-[16px] text-gray-900">Set up your stall</p>
           </div>
         </div>
-        <Link href="/vendor/dashboard" className="text-[12px] font-semibold text-gray-400">Skip for now</Link>
+        <Link href="/vendor-dashboard" className="text-[12px] font-semibold text-gray-400">Skip for now</Link>
       </div>
 
       <ProgressBar step={step} />

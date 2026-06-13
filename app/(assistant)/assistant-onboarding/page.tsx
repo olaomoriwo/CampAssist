@@ -183,7 +183,7 @@ export default function AssistantOnboardingPage() {
             </div>
           ))}
         </div>
-        <button onClick={() => router.push("/assistant/dashboard")}
+        <button onClick={() => router.push("/assistant-dashboard")}
           className="w-full max-w-xs py-4 rounded-2xl font-bold text-[15px] text-white"
           style={{ background: `linear-gradient(135deg, ${ORANGE}, ${ORANGE_DARK})`, boxShadow: `0 4px 20px rgba(234,88,12,0.35)` }}>
           Go to my dashboard →
@@ -206,7 +206,7 @@ export default function AssistantOnboardingPage() {
             <p className="font-bold text-[16px] text-gray-900">Your assistant profile</p>
           </div>
         </div>
-        <Link href="/assistant/dashboard" className="text-[12px] font-semibold text-gray-400">Skip for now</Link>
+        <Link href="/assistant-dashboard" className="text-[12px] font-semibold text-gray-400">Skip for now</Link>
       </div>
 
       <ProgressBar step={step} />
