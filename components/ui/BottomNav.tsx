@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MapPin, Users, Tent, MessageCircle, Calendar, Store } from "lucide-react";
+import { Home, MapPin, Users, Tent, MessageCircle, Calendar, Store, UserCircle } from "lucide-react";
 import { UserRole } from "@/types";
 
 interface BottomNavProps { role: UserRole; }
@@ -11,24 +11,26 @@ const camperLinks = [
   { href: "/tents", icon: Tent, label: "Tents" },
   { href: "/map", icon: MapPin, label: "Map" },
   { href: "/messages", icon: MessageCircle, label: "Messages" },
-  { href: "/groups", icon: Users, label: "Groups" },
+  { href: "/profile", icon: UserCircle, label: "Profile" },
 ];
 
 const assistantLinks = [
   { href: "/assistant-dashboard", icon: Home, label: "Jobs" },
   { href: "/assistant-messages", icon: MessageCircle, label: "Messages" },
   { href: "/job-history", icon: Users, label: "History" },
+  { href: "/assistant-profile", icon: UserCircle, label: "Profile" },
 ];
 
 const adminLinks = [
   { href: "/admin", icon: Home, label: "Admin" },
+  { href: "/admin-profile", icon: UserCircle, label: "Profile" },
 ];
 
 const vendorLinks = [
   { href: "/vendor-dashboard", icon: Home, label: "Home" },
   { href: "/vendor/pin", icon: MapPin, label: "My Pin" },
   { href: "/vendor/schedule", icon: Calendar, label: "Schedule" },
-  { href: "/vendor/schedule/new", icon: Store, label: "Add Event" },
+  { href: "/vendor-profile", icon: UserCircle, label: "Profile" },
 ];
 
 export default function BottomNav({ role }: BottomNavProps) {
